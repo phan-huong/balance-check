@@ -1,2 +1,8 @@
-# balance-check
-Project by Group 6 in course of WTAT1 Web Technology: Agile Web Development SoSe21
+# Balance Check
+Project Web Technology SoSe21
+
+# Team (Group 6)
+- John-Peter Mason Warkulat
+- Martin Christian Solihin
+- Ngoc Huong Phan
+- Niklas Lengert
