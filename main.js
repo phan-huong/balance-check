@@ -18,18 +18,16 @@ app.use(layouts);
 // serving of static files
 app.use(express.static("public"));
 
+// Tell Express.js app to use body-parser for processing URL- encoded and JSON parameters
+app.use(express.urlencoded({extended: false}));
+app.use(express.json());
+
 // Routes
 app.get("/", homeController.homePage);
-app.get("/contact", homeController.showSignUp);
-app.post("/contact", homeController.postedSignUpForm);
-
-// Tell Express.js app to use body-parser for processing URL- encoded and JSON parameters
-app.use(
-  express.urlencoded({
-    extended: false
-  })
-);
-app.use(express.json());
+app.post("/", homeController.homePage);
+app.post("/contact", homeController.signUp);
+app.post("/thanks", homeController.succeed);
+app.post("/myAccount", homeController.myAccount);
 
 // Add error handlers as middleware functions
 app.use(errorController.pageNotFoundError);
