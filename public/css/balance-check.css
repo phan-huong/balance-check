@@ -17,7 +17,6 @@ h2{
 div{
   margin: auto;
   font-size: 16px;
-  text-align: center;
 }
 
 img{
@@ -65,6 +64,7 @@ button:hover {
 #header{
   font-family: verdana;
   font-size: 24px;
+  text-align: center;
   padding: 10px;
   left: 0;
   right: 0;
@@ -75,10 +75,15 @@ button:hover {
 
 #footer{
   position: fixed;
+  text-align: center;
   left: 0;
   right: 0;
   bottom: 0;
   width: 100%;
   background-color: dodgerblue;
   color: white;
+}
+
+#contentNext{
+  display: none;
 }

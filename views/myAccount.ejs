@@ -7,7 +7,39 @@
   <body>
     <%- include('partials/navigation') %>
 
+    <!-- print out the username -->
     <h1>Welcome back</h1>
     <h2><%= username %></h2>
+
+    <!-- Input my balance -->
+    <input type="text" id="balance" placeholder="Enter Your Balance">
+    <button id="btn" onclick="setVisibility('contentNext', 'inline'); myBalance('balance', 'moneyOutput')">Enter</button>
+    <h3 id="moneyOutput"></h3>
+
+    <!-- content, which will be shown after enter the balance -->
+    <div id="contentNext">
+      <!-- select dropdown spending category list -->
+      <form>
+        Select category:
+        <select id="selectCategory">
+          <% spendingCategory.forEach(categories => { %>
+            <option><%= categories.category %></option>
+
+            <%# var chooseCategory = categories.category %>
+            <%# console.log("category: " + categories.category); %>
+
+          <% }); %>
+          <!-- when select custom, create new field, where user can input text -->
+        </select>
+      </form>
+
+      <!-- Input nominal spend -->
+      <input type="text" id="spend" placeholder="Enter Nominal">
+      <button id="btn" onclick="mySpend('spend', 'spendOutput')">Enter</button>
+      <h3 id="spendOutput"></h3>
+
+      <!-- Display subtraction -->
+      
+    </div>
   </body>
 </html>
