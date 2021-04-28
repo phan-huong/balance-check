@@ -25,7 +25,7 @@ app.use(express.json());
 // Routes
 app.get("/", homeController.homePage);
 app.post("/", homeController.homePage);
-app.post("/contact", homeController.signUp);
+app.post("/signUp", homeController.signUp);
 app.post("/thanks", homeController.succeed);
 app.post("/myAccount", homeController.myAccount);
 

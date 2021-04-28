@@ -5,7 +5,7 @@ exports.homePage = (req, res) => {
 }
 
 exports.signUp = (req, res) => {
-  res.render("contact");
+  res.render("signUp");
 }
 
 exports.succeed = (req, res) => {
