@@ -5,12 +5,14 @@
     <title>Create New Account</title>
   </head>
   <body>
-    <form action="/thanks" method="post">
+    <form action="/subscribe" method="post">
       <label for="name">Name</label>
-      <input type="text" name="name">
+      <input type="text" name="name" placeholder="Name">
       <label for="email">Email</label>
-      <input type="email" name="email">
-      <button>Submit</button>
+      <input type="email" name="email" placeholder="Email">
+      <label for="zipCode">Zip Code</label>
+      <input type="text" pattern="[0-9]{5}" name="zipCode" placeholder="Zip Code">
+      <input type="submit" name="submit">
     </form>
   </body>
 </html>
