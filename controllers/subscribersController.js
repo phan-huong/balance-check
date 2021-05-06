@@ -1,6 +1,8 @@
+"use strict";
+
 const Subscriber = require("../models/subscriber");
 
-//Retrieve all subcribers
+// retrieve all subcribers
 exports.getAllSubscribers = (req, res) => {
  Subscriber.find({})
   .exec()
@@ -18,15 +20,15 @@ exports.getAllSubscribers = (req, res) => {
  });
 };
 
-//Render the signUp page
+// render the signUp page
 exports.getSubscriptionPage = (req, res) => {
   res.render("signUp");
 };
 
-//save subscribers
+// save subscribers
 exports.saveSubscriber = (req, res) => {
   let newSubscriber = new Subscriber( {
-    name: req.body.name,
+    name: req.body.name.trim().toLowerCase(),
     email: req.body.email,
     zipCode: req.body.zipCode
   });

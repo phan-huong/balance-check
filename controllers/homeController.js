@@ -36,9 +36,15 @@ exports.myAccount = (req, res) => {
   if (req.body.username === "") {
     res.send(`<h1>Empty Field</h1>`);
   } else {
+
+    // check whether req.body.username.trim().toLowerCase() is availabe in collection
+
     res.render("myAccount", {
       username: req.body.username.trim().toLowerCase(),
       spendingCategory: categories
     });
+
+    // else throws error
+    
   }
 }

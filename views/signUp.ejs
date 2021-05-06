@@ -5,14 +5,32 @@
     <title>Create New Account</title>
   </head>
   <body>
-    <form action="/subscribe" method="post">
-      <label for="name">Name</label>
-      <input type="text" name="name" placeholder="Name">
-      <label for="email">Email</label>
-      <input type="email" name="email" placeholder="Email">
-      <label for="zipCode">Zip Code</label>
-      <input type="text" pattern="[0-9]{5}" name="zipCode" placeholder="Zip Code">
-      <input type="submit" name="submit">
-    </form>
+    <table>
+      <tr>
+        <th>
+          <img src="images/goodvibesonly.jpg">
+        </th>
+        <th style="text-align:left">
+          <h1 font-size:36px>Create new account!</h1>
+          <h5>Please fill all the field</h5>
+          <form action="/subscribe" method="post">
+            <label for="name">Name</label>
+            <br>
+            <input type="text" name="name" placeholder="Name" style="margin: 10px">
+            <br>
+            <label for="email">Email</label>
+            <br>
+            <input type="email" name="email" placeholder="Email" style="margin: 10px">
+            <br>
+            <label for="zipCode">Zip Code</label>
+            <br>
+            <input type="zipCode" name="zipCode" placeholder="Zip Code" pattern="[0-9]{5}" style="margin: 10px">
+            <br>
+            <input type="submit" value="Submit" style="margin-left: 10px">
+          </form>
+          <h5>We'll get back to you soon!</h5>
+        </th>
+      </tr>
+    </table>
   </body>
 </html>

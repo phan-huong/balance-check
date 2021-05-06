@@ -1,24 +1,18 @@
 "use strict";
 
 const port = 3000,
+      // express
       express = require("express"),
-      mongoose = require("mongoose"),
-      db = mongoose.connection, //only for visiual purposes (line 17)
       app = express(),
+      // express-ejs-layouts
       layouts = require("express-ejs-layouts"),
+      // mongoose
+      mongoose = require("mongoose"),
+      db = mongoose.connection,
+      // controllers
       homeController = require("./controllers/homeController"),
       errorController = require("./controllers/errorController"),
       subscribersController = require("./controllers/subscribersController");
-
-mongoose.Promise = global.Promise;
-
-//Set up database connection
-mongoose.connect("mongodb://localhost:27017/balance_check", {useNewUrlParser: true});
-
-//tell me in the console if database is connected
-db.once("open", () => {
- console.log("Successfully connected to MongoDB using Mongoose!");
-});
 
 app.set("port", process.env.PORT || 3000);
 
@@ -30,6 +24,20 @@ app.use(layouts);
 
 // serving of static files
 app.use(express.static("public"));
+
+// to support promise chains
+mongoose.Promise = global.Promise;
+
+// configuring mongoose with Node.js to set up database connection
+mongoose.connect(
+  "mongodb://localhost:27017/balance_check",
+  {useNewUrlParser: true}
+);
+
+// log a message when the database is connected in main.js
+db.once("open", () => {
+  console.log("Successfully connected to MongoDB using Mongoose!");
+});
 
 // Tell Express.js app to use body-parser for processing URL- encoded and JSON parameters
 app.use(express.urlencoded({extended: false}));
