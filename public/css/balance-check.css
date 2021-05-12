@@ -5,7 +5,8 @@ body{
 
 h1{
   font-size: 36px;
-  text-transform: uppercase; letter-spacing: 2px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
   text-align: center;
 }
 
@@ -28,21 +29,6 @@ img{
   max-width: 500px;
 }
 
-.centerHorizontalVertical {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-}
-
-.centerHorizontal {
-  position: absolute;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-}
-
 button {
         display: inline-block;
         background-color: #1e90ff;
@@ -61,6 +47,21 @@ button {
 button:hover {
   background-color: #87ceeb;
   color: #000000
+}
+
+.centerHorizontalVertical {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.centerHorizontal {
+  position: absolute;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
 #header{

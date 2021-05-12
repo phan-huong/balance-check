@@ -1,20 +1,13 @@
 "use strict";
 
-const Subscriber = require("../models/subscriber"),
-      getSubscriberParams = (body) => {
-        return {
-          name: body.name,
-          email: body.email,
-          zipCode: parseInt(body.zipCode)
-        };
-      };
+const User = require("../models/user");
 
 module.exports = {
   // index action
   index: (req, res, next) => {
-    Subscriber.find()
-      .then(subscriber => {
-        res.locals.subscribers = subscriber;
+    User.find()
+      .then(user => {
+        res.locals.users = user;
         next();
       })
       .catch(error => {
@@ -23,19 +16,27 @@ module.exports = {
       });
   },
   indexView: (req, res) => {
-    res.render("subscribers/index");
+    res.render("users/index");
   },
   // new action
   new: (req, res) => {
-    res.render("subscribers/new");
+    res.render("users/new");
   },
   // create action
   create: (req, res, next) => {
-    let subscriberParams = getSubscriberParams(req.body);
-    Subscriber.create(subscriberParams)
-        .then(subscriber => {
-          res.locals.redirect = "/subscribers";
-          res.locals.subscriber = subscriber;
+    let userParams = {
+      name: {
+        first: req.body.first,
+        last: req.body.last
+      },
+      email: req.body.email,
+      password: req.body.password,
+      zipCode: req.body.zipCode
+    };
+    User.create(userParams)
+        .then(user => {
+          res.locals.redirect = "/users";
+          res.locals.user = user;
           next();
         })
         .catch(error => {
@@ -50,10 +51,10 @@ module.exports = {
   },
   // show action
   show: (req, res, next) => {
-    let subscriberId = req.params.id;
-    Subscriber.findById(subscriberId)
-        .then(subscriber => {
-          res.locals.subscriber = subscriber;
+    let userId = req.params.id;
+    User.findById(userId)
+        .then(user => {
+          res.locals.user = user;
           next();
         })
         .catch(error => {
@@ -62,15 +63,15 @@ module.exports = {
         });
   },
   showView: (req, res) => {
-    res.render("subscribers/show");
+    res.render("users/show");
   },
   // edit and update action
   edit: (req, res, next) => {
-    let subscriberId = req.params.id;
-    Subscriber.findById(subscriberId)
-        .then(subscriber => {
-          res.render("subscribers/edit", {
-            subscriber: subscriber
+    let userId = req.params.id;
+    User.findById(userId)
+        .then(user => {
+          res.render("users/edit", {
+            user: user
           });
         })
         .catch(error => {
@@ -79,14 +80,22 @@ module.exports = {
         });
   },
   update: (req, res, next) => {
-    let subscriberId = req.params.id,
-        subscriberParams = getSubscriberParams(req.body);
-    Subscriber.findByIdAndUpdate(subscriberId, {
-          $set: subscriberParams
+    let userId = req.params.id,
+        userParams = {
+          name: {
+            first: req.body.first,
+            last: req.body.last
+          },
+          email: req.body.email,
+          password: req.body.password,
+          zipCode: req.body.zipCode
+        };
+    User.findByIdAndUpdate(userId, {
+          $set: userParams
         })
-        .then(subscriber => {
-          res.locals.redirect = `/subscribers/${subscriberId}`;
-          res.locals.subscriber = subscriber;
+        .then(user => {
+          res.locals.redirect = `/users/${userId}`;
+          res.locals.user = user;
           next();
         })
         .catch(error => {
@@ -96,10 +105,10 @@ module.exports = {
   },
   // delete action
   delete: (req, res, next) => {
-    let subscriberId = req.params.id;
-    Subscriber.findByIdAndRemove(subscriberId)
+    let userId = req.params.id;
+    User.findByIdAndRemove(userId)
         .then(() => {
-          res.locals.redirect = "/subscribers";
+          res.locals.redirect = "/users";
           next();
         })
         .catch(error => {

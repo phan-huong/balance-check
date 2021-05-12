@@ -1,20 +1,21 @@
 "use strict";
 
-const Subscriber = require("../models/subscriber"),
-      getSubscriberParams = (body) => {
+const Course = require("../models/course"),
+      getCourseParams = (body) => {
         return {
-          name: body.name,
-          email: body.email,
-          zipCode: parseInt(body.zipCode)
+          title: body.title,
+          description: body.description,
+          maxStudents: body.maxStudents,
+          cost: body.cost
         };
       };
 
 module.exports = {
   // index action
   index: (req, res, next) => {
-    Subscriber.find()
-      .then(subscriber => {
-        res.locals.subscribers = subscriber;
+    Course.find()
+      .then(course => {
+        res.locals.courses = course;
         next();
       })
       .catch(error => {
@@ -23,19 +24,19 @@ module.exports = {
       });
   },
   indexView: (req, res) => {
-    res.render("subscribers/index");
+    res.render("courses/index");
   },
   // new action
   new: (req, res) => {
-    res.render("subscribers/new");
+    res.render("courses/new");
   },
   // create action
   create: (req, res, next) => {
-    let subscriberParams = getSubscriberParams(req.body);
-    Subscriber.create(subscriberParams)
-        .then(subscriber => {
-          res.locals.redirect = "/subscribers";
-          res.locals.subscriber = subscriber;
+    let courseParams = getCourseParams(req.body);
+    Course.create(courseParams)
+        .then(course => {
+          res.locals.redirect = "/courses";
+          res.locals.course = course;
           next();
         })
         .catch(error => {
@@ -50,10 +51,10 @@ module.exports = {
   },
   // show action
   show: (req, res, next) => {
-    let subscriberId = req.params.id;
-    Subscriber.findById(subscriberId)
-        .then(subscriber => {
-          res.locals.subscriber = subscriber;
+    let courseId = req.params.id;
+    Course.findById(courseId)
+        .then(course => {
+          res.locals.course = course;
           next();
         })
         .catch(error => {
@@ -62,15 +63,15 @@ module.exports = {
         });
   },
   showView: (req, res) => {
-    res.render("subscribers/show");
+    res.render("courses/show");
   },
   // edit and update action
   edit: (req, res, next) => {
-    let subscriberId = req.params.id;
-    Subscriber.findById(subscriberId)
-        .then(subscriber => {
-          res.render("subscribers/edit", {
-            subscriber: subscriber
+    let courseId = req.params.id;
+    Course.findById(courseId)
+        .then(course => {
+          res.render("courses/edit", {
+            course: course
           });
         })
         .catch(error => {
@@ -79,14 +80,14 @@ module.exports = {
         });
   },
   update: (req, res, next) => {
-    let subscriberId = req.params.id,
-        subscriberParams = getSubscriberParams(req.body);
-    Subscriber.findByIdAndUpdate(subscriberId, {
-          $set: subscriberParams
+    let courseId = req.params.id,
+        courseParams = getCourseParams(req.body);
+    Course.findByIdAndUpdate(courseId, {
+          $set: courseParams
         })
-        .then(subscriber => {
-          res.locals.redirect = `/subscribers/${subscriberId}`;
-          res.locals.subscriber = subscriber;
+        .then(course => {
+          res.locals.redirect = `/courses/${courseId}`;
+          res.locals.course = course;
           next();
         })
         .catch(error => {
@@ -96,10 +97,10 @@ module.exports = {
   },
   // delete action
   delete: (req, res, next) => {
-    let subscriberId = req.params.id;
-    Subscriber.findByIdAndRemove(subscriberId)
+    let courseId = req.params.id;
+    Course.findByIdAndRemove(courseId)
         .then(() => {
-          res.locals.redirect = "/subscribers";
+          res.locals.redirect = "/courses";
           next();
         })
         .catch(error => {
