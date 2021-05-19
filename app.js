@@ -1,6 +1,6 @@
 "use strict";
 
-const port = 3000,
+const port = process.env.PORT || ((process.env.NODE_ENV === 'test') ? 30010 : 3000),
       express = require("express"),
       app = express(),
       layouts = require("express-ejs-layouts"),
@@ -13,7 +13,7 @@ const port = 3000,
       usersController = require("./controllers/usersController"),
       coursesController = require("./controllers/coursesController");
 
-app.set("port", process.env.PORT || ((process.env.NODE_ENV === 'test') ? 3001 : 3000));
+app.set("port", port);
 
 // set the application to use ejs
 app.set("view engine", "ejs");

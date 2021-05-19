@@ -4,7 +4,8 @@
   "description": "Project Web Technology SoSe21",
   "main": "main.js",
   "scripts": {
-    "start": "nodemon main.js",
+    "run": "npm main.js",
+    "run dev": "nodemon main.js",
     "test": "jest",
     "test:watch": "jest --watch"
   },
