@@ -1,8 +1,8 @@
 const { app, request } = require('../commonJest')
 
-it('renders home correctly', (done) => {
+it('renders courses page correctly', (done) => {
   request(app)
-    .get('/')
+    .get('/courses')
     .then((response) => {
       expect(response.text).toMatchSnapshot()
       done()

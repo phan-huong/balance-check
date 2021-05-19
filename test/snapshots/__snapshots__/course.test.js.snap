@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders home correctly 1`] = `
+exports[`renders courses page correctly 1`] = `
 "<!DOCTYPE html>
 <html lang=\\"en\\">
   <head>
@@ -19,25 +19,23 @@ exports[`renders home correctly 1`] = `
   </head>
   <body>
     <b><div id=\\"header\\">Balance Check</div></b>
-    <!DOCTYPE html>
-<html lang=\\"en\\" dir=\\"ltr\\">
-  <head>
-    <meta charset=\\"utf-8\\">
-    <title>Home Page</title>
-  </head>
-  <body>
-    <div class=\\"centerHorizontalVertical\\">
-      <h1> HOME PAGE </h1>
-      <form action=\\"/myAccount\\" method=\\"post\\">
-        <input type=\\"text\\" name=\\"username\\">
-        <button>Sign In</button>
-      </form>
-      <form action=\\"/users/new\\" method=\\"get\\">
-        <button>Sign Up</button>
-      </form>
-    </div>
-  </body>
-</html>
+    <h2 class=\\"center\\">Courses Table</h2>
+<!-- <img src=\\"images/product.jpg\\">*/ -->
+
+<table class=\\"table\\">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Cost</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    
+  </tbody>
+</table>
 
     <div id=\\"footer\\"><p> FOOTER </p></div>
   </body>
