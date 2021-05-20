@@ -36,4 +36,6 @@ mongoose.connect(db, {
 //   console.log(`Server running at http://localhost:${app.get("port")}`);
 // });
 
-app.listen(port, () => console.log(`Server started on port ${port}`));
+app.listen(app.get("port"), () => {
+  console.log(`Server running at Port: ${app.get("port")}`);
+});
