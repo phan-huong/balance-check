@@ -18,17 +18,19 @@ mongoose.Promise = global.Promise;
 // configuring mongoose to connect with database
 mongoose.connect(db, {
   useNewUrlParser: true, 
-  useCreateIndex: true, 
+  // useCreateIndex: true, 
   useUnifiedTopology: true, 
-  useFindAndModify: false
-});
+  // useFindAndModify: false
+  })
+  .then(() => console.log('Successfully connected to MongoDB using Mongoose!'))
+  .catch(err => console.log(err));
 
-db.on('error', console.error.bind(console, 'connection error:'));
+// db.on('error', console.error.bind(console, 'connection error:'));
 
-// log a message when the database is connected in main.js
-db.once("open", () => {
-  console.log("Successfully connected to MongoDB using Mongoose!");
-});
+// // log a message when the database is connected in main.js
+// db.once("open", () => {
+//   console.log("Successfully connected to MongoDB using Mongoose!");
+// });
 
 // app.listen(app.get("port"), () => {
 //   console.log(`Server running at http://localhost:${app.get("port")}`);
