@@ -2,7 +2,7 @@ const { app, request } = require('../commonJest')
 
 it('renders courses page correctly', (done) => {
   request(app)
-    .get('/courses')
+    .get('/')
     .then((response) => {
       expect(response.text).toMatchSnapshot()
       done()
