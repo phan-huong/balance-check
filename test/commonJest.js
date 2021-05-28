@@ -1,29 +1,44 @@
 process.env.NODE_ENV = 'test'
-const Course = require('../models/course')
-const request = require('supertest')
+
+const request = require('supertest'),
+      mongoose = require('mongoose'),
+      db = mongoose.connection,
+      User = require('../models/user'),
+      Category = require('../models/category');
+
 module.exports = {
   app: require('../app'),
-  Course: Course,
+  User: User,
+  Category: Category,
   request: request
 }
 
-const mongoose = require('mongoose')
-mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
-const db = mongoose.connection
+mongoose.connect(process.env.MONGO_URL,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  }
+)
 
 afterAll(async () => {
   await db.close()
 })
 
 beforeEach(function (done) {
-  // console.log('global beforeEach')
-  Course.deleteMany({})
+  User.deleteMany({})
     .then(() => {
-      // console.log('all courses deleted')
       done()
     })
     .catch(error => {
-      // console.log('error caught: ' + error.message)
+      console.log('error caught: ' + error.message)
+      done(error.message)
+    })
+  Category.deleteMany({})
+    .then(() => {
+      done()
+    })
+    .catch(error => {
+      console.log('error caught: ' + error.message)
       done(error.message)
     })
 })
