@@ -1,0 +1,28 @@
+<table>
+  <tr>
+    <th>
+      <img src="../images/goodvibesonly.jpg">
+    </th>
+    <th style="text-align:left">
+      <h1 style="text-align:left" font-size:36px>My Spending!</h1>
+      <h5>Enter Spending Category:</h5>
+      <form action="/categories/create" method="POST">
+        <h2> Create a new spending: </h2>
+        <label for="inputCategory">Category</label>
+        <br>
+        <input type="text" name="category" id="inputCategory" placeholder="Category" style="margin-left: 10px" autofocus>
+        <br>
+        <label for="inputNominal">Nominal</label>
+        <br>
+        <input type="text" name="nominal" id="inputNominal" placeholder="Nominal" style="margin-left: 10px" required>
+        <br>
+        <label for="inputDescription">Description</label>
+        <br>
+        <input type="text" name="description" id="inputDescription" placeholder="Description" style="margin-left: 10px" required>
+        <br>
+        <button type="submit">Create</button>
+      </form>
+      <h5>Thanks!</h5>
+    </th>
+  </tr>
+</table>

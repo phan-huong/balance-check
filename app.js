@@ -9,9 +9,9 @@ const port = process.env.PORT || ((process.env.NODE_ENV === 'test') ? 30010 : 30
       // controllers
       homeController = require("./controllers/homeController"),
       errorController = require("./controllers/errorController"),
-      subscribersController = require("./controllers/subscribersController"),
       usersController = require("./controllers/usersController"),
-      coursesController = require("./controllers/coursesController");
+      balancesController = require("./controllers/balancesController"),
+      categoriesController = require("./controllers/categoriesController");
 
 app.set("port", port);
 
@@ -39,14 +39,6 @@ app.use("/", router);
 router.get("/", homeController.homePage);
 router.post("/myAccount", homeController.myAccount);
 
-router.get("/subscribers", subscribersController.index, subscribersController.indexView);
-router.get("/subscribers/new", subscribersController.new);
-router.post("/subscribers/create", subscribersController.create, subscribersController.redirectView);
-router.get("/subscribers/:id", subscribersController.show, subscribersController.showView);
-router.get("/subscribers/:id/edit", subscribersController.edit);
-router.put("/subscribers/:id/update", subscribersController.update, subscribersController.redirectView);
-router.delete("/subscribers/:id/delete", subscribersController.delete, subscribersController.redirectView);
-
 router.get("/users", usersController.index, usersController.indexView);
 router.get("/users/new", usersController.new);
 router.post("/users/create", usersController.create, usersController.redirectView);
@@ -55,13 +47,20 @@ router.get("/users/:id/edit", usersController.edit);
 router.put("/users/:id/update", usersController.update, usersController.redirectView);
 router.delete("/users/:id/delete", usersController.delete, usersController.redirectView);
 
-router.get("/courses", coursesController.index, coursesController.indexView);
-router.get("/courses/new", coursesController.new);
-router.post("/courses/create", coursesController.create, coursesController.redirectView);
-router.get("/courses/:id", coursesController.show, coursesController.showView);
-router.get("/courses/:id/edit", coursesController.edit);
-router.put("/courses/:id/update", coursesController.update, coursesController.redirectView);
-router.delete("/courses/:id/delete", coursesController.delete, coursesController.redirectView);
+router.get("/balances", balancesController.index, balancesController.indexView);
+router.get("/balances/new", balancesController.new);
+router.post("/balances/create", balancesController.create, balancesController.redirectView);
+router.get("/balances/:id/edit", balancesController.edit);
+router.put("/balances/:id/update", balancesController.update, balancesController.redirectView);
+router.delete("/balances/:id/delete", balancesController.delete, balancesController.redirectView);
+
+router.get("/categories", categoriesController.index, categoriesController.indexView);
+router.get("/categories/new", categoriesController.new);
+router.post("/categories/create", categoriesController.create, categoriesController.redirectView);
+router.get("/categories/:id", categoriesController.show, categoriesController.showView);
+router.get("/categories/:id/edit", categoriesController.edit);
+router.put("/categories/:id/update", categoriesController.update, categoriesController.redirectView);
+router.delete("/categories/:id/delete", categoriesController.delete, categoriesController.redirectView);
 
 // Add error handlers as middleware functions
 router.use(errorController.pageNotFoundError);

@@ -1,21 +1,20 @@
 "use strict";
 
-const Course = require("../models/course"),
-      getCourseParams = (body) => {
+const Category = require("../models/category"),
+      getCategoryParams = (body) => {
         return {
-          title: body.title,
-          description: body.description,
-          maxStudents: body.maxStudents,
-          cost: body.cost
+          category: body.category,
+          nominal: parseInt(body.nominal),
+          description: body.description
         };
       };
 
 module.exports = {
   // index action
   index: (req, res, next) => {
-    Course.find()
-      .then(course => {
-        res.locals.courses = course;
+    Category.find()
+      .then(category => {
+        res.locals.categories = category;
         next();
       })
       .catch(error => {
@@ -24,19 +23,19 @@ module.exports = {
       });
   },
   indexView: (req, res) => {
-    res.render("courses/index");
+    res.render("categories/index");
   },
   // new action
   new: (req, res) => {
-    res.render("courses/new");
+    res.render("categories/new");
   },
   // create action
   create: (req, res, next) => {
-    let courseParams = getCourseParams(req.body);
-    Course.create(courseParams)
-        .then(course => {
-          res.locals.redirect = "/courses";
-          res.locals.course = course;
+    let categoryParams = getCategoryParams(req.body);
+    Category.create(categoryParams)
+        .then(category => {
+          res.locals.redirect = "/categories";
+          res.locals.category = category;
           next();
         })
         .catch(error => {
@@ -51,10 +50,10 @@ module.exports = {
   },
   // show action
   show: (req, res, next) => {
-    let courseId = req.params.id;
-    Course.findById(courseId)
-        .then(course => {
-          res.locals.course = course;
+    let categoryId = req.params.id;
+    Category.findById(categoryId)
+        .then(category => {
+          res.locals.category = category;
           next();
         })
         .catch(error => {
@@ -63,15 +62,15 @@ module.exports = {
         });
   },
   showView: (req, res) => {
-    res.render("courses/show");
+    res.render("categories/show");
   },
   // edit and update action
   edit: (req, res, next) => {
-    let courseId = req.params.id;
-    Course.findById(courseId)
-        .then(course => {
-          res.render("courses/edit", {
-            course: course
+    let categoryId = req.params.id;
+    Category.findById(categoryId)
+        .then(category => {
+          res.render("categories/edit", {
+            category: category
           });
         })
         .catch(error => {
@@ -80,14 +79,14 @@ module.exports = {
         });
   },
   update: (req, res, next) => {
-    let courseId = req.params.id,
-        courseParams = getCourseParams(req.body);
-    Course.findByIdAndUpdate(courseId, {
-          $set: courseParams
+    let categoryId = req.params.id,
+        categoryParams = getCategoryParams(req.body);
+    Category.findByIdAndUpdate(categoryId, {
+          $set: categoryParams
         })
-        .then(course => {
-          res.locals.redirect = `/courses/${courseId}`;
-          res.locals.course = course;
+        .then(category => {
+          res.locals.redirect = `/categories/${categoryId}`;
+          res.locals.category = category;
           next();
         })
         .catch(error => {
@@ -97,10 +96,10 @@ module.exports = {
   },
   // delete action
   delete: (req, res, next) => {
-    let courseId = req.params.id;
-    Course.findByIdAndRemove(courseId)
+    let categoryId = req.params.id;
+    Category.findByIdAndRemove(categoryId)
         .then(() => {
-          res.locals.redirect = "/courses";
+          res.locals.redirect = "/categories";
           next();
         })
         .catch(error => {
