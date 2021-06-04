@@ -3,7 +3,7 @@
 const httpStatus = require("http-status-codes");
 
 module.exports = {
-  pageNotFoundError: (req, res) => {
+  pageNotFoundError: (error, req, res, next) => {
     let errorCode = httpStatus.NOT_FOUND;
     res.status(errorCode);
     //console.log(`Error occured: ${errorCode} | ${error.stack}`)

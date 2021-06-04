@@ -16,16 +16,36 @@
   </head>
   <body>
     <b><div id="header">Balance Check</div></b>
-    <%- body %>
-    <div class="flashes">
-       <% if (flashMessages) { %>
-         <% if (flashMessages.success) { %>
-            <div class="flash success"><%= flashMessages.success %></div>
-         <% } else if (flashMessages.error) { %>
-            <div class="flash error"><%= flashMessages.error %></div>
-         <% } %>
+
+    <div class="flashes" style="text-align: center;">
+      <% if (flashMessages) { %>
+        <% if (flashMessages.success) { %>
+          <div class="flash success">
+            <%= flashMessages.success %>
+          </div>
+        <% } else if (flashMessages.error) { %>
+          <div class="flash error">
+            <%= flashMessages.error %>
+          </div>
+        <% } %>
       <% } %>
     </div>
+
+    <div class="loggedIn" style="text-align: center;">
+      <% if (loggedIn) { %>
+        <p>Logged in as
+          <a href="<%= `/users/${currentUser._id}`%>">
+            <%= currentUser.fullName %>
+          </a>
+          <br>
+          <a href="/users/logout">Log out</a>
+        </p>
+          <% } else { %>
+          <a href="/users/login">Log In</a>
+      <% } %>
+    </div>
+
+    <%- body %>
     <div id="footer"><p> FOOTER </p></div>
   </body>
 </html>

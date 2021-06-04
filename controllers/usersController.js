@@ -1,18 +1,18 @@
 "use strict";
 
 const User = require("../models/user"),
-
-getUserParams = (body) => {
-    return {
-      name: {
-        first: body.first,
-        last: body.last
-      },
-      email: body.email,
-      password: body.password,
-      zipCode: body.zipCode
-    };
-  };
+      passport = require("passport"),
+      getUserParams = (body) => {
+        return {
+          name: {
+            first: body.first,
+            last: body.last
+          },
+          email: body.email,
+          password: body.password,
+          zipCode: body.zipCode
+        };
+      };
 
 module.exports = {
   // index action
@@ -36,19 +36,19 @@ module.exports = {
   },
   // create action
   create: (req, res, next) => {
-    let userParams = getUserParams(req.body);
-    User.create(userParams)
-    .then(user => {
-      req.flash("success", `${user.fullName}'s account created successfully!`);
-      res.locals.redirect = "/users";
-      res.locals.user = user;
+    if (req.skip)
       next();
-    })
-    .catch(error => {
-      console.log(`Error saving user: ${error.message}`);
-      res.locals.redirect = "/users/new";
-      req.flash("error", `Failed to create user account because: ➥${error.message}.`);
-      next();
+    let newUser = new User(getUserParams(req.body));
+    User.register(newUser, req.body.password, (error, user) => {
+      if (user) {
+        req.flash("success", `${user.fullName}'s account created successfully!`);
+        res.locals.redirect = "/users";
+        next();
+      } else {
+        req.flash("error", `Failed to create user account because: ${error.message}.`);
+        res.locals.redirect = "/users/new";
+        next();
+      }
     });
   },
   redirectView: (req, res, next) => {
@@ -88,15 +88,7 @@ module.exports = {
   },
   update: (req, res, next) => {
     let userId = req.params.id,
-        userParams = {
-          name: {
-            first: req.body.first,
-            last: req.body.last
-          },
-          email: req.body.email,
-          password: req.body.password,
-          zipCode: req.body.zipCode
-        };
+        userParams = getUserParams(req.body);
     User.findByIdAndUpdate(userId, {
           $set: userParams
         })
@@ -123,31 +115,48 @@ module.exports = {
           next(error);
         });
   },
-
-  //login + authenticate
+  // login and authenticate action
   login: (req, res) => {
     res.render("users/login");
   },
+  authenticate: passport.authenticate("local", {
+    failureRedirect: "/users/login",
+    failureFlash: "Failed to login.",
+    successRedirect: "/users",
+    successFlash: "Logged in!"
+  }),
+  // validation action
+  validate: (req, res, next) => {
+    req.sanitizeBody("email")
+       .normalizeEmail({
+         all_lowercase: true
+       })
+       .trim();
+    req.check("email", "Email is invalid").isEmail();
+    req.check("zipCode", "Zip code cannot be empty").notEmpty();
+    req.check("zipCode", "Zip code must be number").isInt();
+    req.check("zipCode", "Zip code must have 5 digit").isLength({
+      min: 5,
+      max: 5
+    }).equals(req.body.zipCode);
+    req.check("password", "Password cannot be empty").notEmpty();
 
-  authenticate: (req, res, next) => {
-    User.findOne({
-      email: req.body.email
-    })
-    .then(user => {
-      if (user && user.password === req.body.password){
-        res.locals.redirect = `/users/${user._id}`;
-        req.flash("success", `${user.fullName}'s logged in successfully!`);
-        res.locals.user = user;
+    req.getValidationResult().then((error) => {
+      if (!error.isEmpty()) {
+        let messages = error.array().map(e => e.msg);
+        req.skip = true;
+        req.flash("error", messages.join(" and "));
+        res.locals.redirect = "/users/new";
         next();
-        } else {
-          req.flash("error", "Your account or password is incorrect. Please try again or contact your system administrator!");
-          res.locals.redirect = "/users/login";
-          next();
-        }
-      })
-      .catch(error => {
-        console.log(`Error logging in user: ${error.message}`);
-        next(error);
-      });
-    }
+      } else {
+        next();
+      }
+    });
+  },
+  logout: (req,res, next) => {
+    req.logout();
+    req.flash("success", "You have been logged out!");
+    res.locals.redirect = "/users/login";
+    next();
+  }
 };

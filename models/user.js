@@ -1,7 +1,8 @@
 "use strict";
 
 const mongoose = require("mongoose"),
-      { Schema } = require("mongoose"),
+      passportLocalMongoose = require("passport-local-mongoose"),
+      {Schema} = require("mongoose"),
       userSchema = new Schema({
         name: {
           first: {
@@ -22,10 +23,7 @@ const mongoose = require("mongoose"),
         zipCode: {
           type: Number,
           min: [10000, "Zip code too short"],
-          max: 99999
-        },
-        password: {
-          type: String,
+          max: 99999,
           required: true
         },
         balance: {
@@ -48,5 +46,10 @@ const mongoose = require("mongoose"),
 userSchema.virtual("fullName").get(function() {
   return `${this.name.first} ${this.name.last}`;
 })
+
+// adding passport-local-mongoose plugin
+userSchema.plugin(passportLocalMongoose, {
+  usernameField: "email"
+});
 
 module.exports = mongoose.model("User", userSchema);
