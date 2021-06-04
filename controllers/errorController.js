@@ -6,7 +6,7 @@ module.exports = {
   pageNotFoundError: (req, res) => {
     let errorCode = httpStatus.NOT_FOUND;
     res.status(errorCode);
-    console.log(`Error occured: ${errorCode} | ${error.stack}`)
+    //console.log(`Error occured: ${errorCode} | ${error.stack}`)
     res.render("error")
   },
   internalServerError: (error, req, res, next) => {

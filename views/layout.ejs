@@ -17,6 +17,15 @@
   <body>
     <b><div id="header">Balance Check</div></b>
     <%- body %>
+    <div class="flashes">
+       <% if (flashMessages) { %>
+         <% if (flashMessages.success) { %>
+            <div class="flash success"><%= flashMessages.success %></div>
+         <% } else if (flashMessages.error) { %>
+            <div class="flash error"><%= flashMessages.error %></div>
+         <% } %>
+      <% } %>
+    </div>
     <div id="footer"><p> FOOTER </p></div>
   </body>
 </html>
