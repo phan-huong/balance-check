@@ -6,18 +6,12 @@ const port = process.env.PORT || ((process.env.NODE_ENV === 'test') ? 30010 : 30
       app = express(),
       layouts = require("express-ejs-layouts"),
       methodOverride = require("method-override"),
-      router = express.Router(),
       expressSession = require("express-session"),
       cookieParser = require("cookie-parser"),
       connectFlash = require("connect-flash"),
       expressValidator = require("express-validator"),
       passport = require("passport"),
-      // controllers
-      homeController = require("./controllers/homeController"),
-      errorController = require("./controllers/errorController"),
-      usersController = require("./controllers/usersController"),
-      balancesController = require("./controllers/balancesController"),
-      categoriesController = require("./controllers/categoriesController");
+      router = require("./routes/index");
 
 app.set("port", port);
 
@@ -36,8 +30,8 @@ app.use(methodOverride("_method", {
 }));
 
 // requiring flash messaging
-router.use(cookieParser("secret_passcode"));
-router.use(expressSession({
+app.use(cookieParser("secret_passcode"));
+app.use(expressSession({
   secret: "secret_passcode",
   cookie: {
     maxAge: 4000000
@@ -47,11 +41,11 @@ router.use(expressSession({
 }));
 
 // adding flash messaging
-router.use(connectFlash());
+app.use(connectFlash());
 
 // requiring and initializing passport
-router.use(passport.initialize());
-router.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
 // setting up passport serializing
 passport.use(User.createStrategy());
@@ -62,14 +56,11 @@ passport.deserializeUser(User.deserializeUser());
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
-// using router
-app.use("/", router);
-
 // use express validator
-router.use(expressValidator());
+app.use(expressValidator());
 
 // custom middleware
-router.use((req, res, next) => {
+app.use((req, res, next) => {
   res.locals.flashMessages = req.flash();
   // adding local variables
   res.locals.loggedIn = req.isAuthenticated();
@@ -80,37 +71,8 @@ router.use((req, res, next) => {
 //Routes
 app.use("/", router);
 
-router.get("/", homeController.homePage);
-router.post("/myAccount", homeController.myAccount);
-
-router.get("/users/login", usersController.login);
-router.post("/users/login", usersController.authenticate);
-router.get("/users/logout", usersController.logout, usersController.redirectView);
-router.get("/users", usersController.index, usersController.indexView);
-router.get("/users/new", usersController.new);
-router.post("/users/create", usersController.validate, usersController.create, usersController.redirectView);
-router.get("/users/:id", usersController.show, usersController.showView);
-router.get("/users/:id/edit", usersController.edit);
-router.put("/users/:id/update", usersController.update, usersController.redirectView);
-router.delete("/users/:id/delete", usersController.delete, usersController.redirectView);
-
-router.get("/balances", balancesController.index, balancesController.indexView);
-router.get("/balances/new", balancesController.new);
-router.post("/balances/create", balancesController.create, balancesController.redirectView);
-router.get("/balances/:id/edit", balancesController.edit);
-router.put("/balances/:id/update", balancesController.update, balancesController.redirectView);
-router.delete("/balances/:id/delete", balancesController.delete, balancesController.redirectView);
-
-router.get("/categories", categoriesController.index, categoriesController.indexView);
-router.get("/categories/new", categoriesController.new);
-router.post("/categories/create", categoriesController.create, categoriesController.redirectView);
-router.get("/categories/:id", categoriesController.show, categoriesController.showView);
-router.get("/categories/:id/edit", categoriesController.edit);
-router.put("/categories/:id/update", categoriesController.update, categoriesController.redirectView);
-router.delete("/categories/:id/delete", categoriesController.delete, categoriesController.redirectView);
-
-// Add error handlers as middleware functions
-router.use(errorController.pageNotFoundError);
-router.use(errorController.internalServerError);
+// simple security
+app.set("token", process.env.TOKEN);
+app.get("token");
 
 module.exports = app

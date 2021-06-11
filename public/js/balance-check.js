@@ -1,5 +1,28 @@
 "use strict";
 
+$(document).ready(() => {
+  $("#modal-button").click(() => {
+    $(".modal-body").html('');
+    let apiToken = $("#apiToken").data("token");
+    $.get("/api/categories?apiToken=${apiToken}", (results = {}) => {
+      let data = results.data;
+      if (!data || !data.categories) return;
+      data.categories.forEach((category) => {
+        $(".modal-body").append(
+          `<div>
+            <span class="category-category">
+              <b>${category.category}</b>
+            </span>
+            <div class="category-description">
+              €${category.description}
+            </div>
+          </div>`
+        );
+      });
+    });
+  });
+});
+
 function setVisibility(id, visibility) {
   document.getElementById(id).style.display = visibility;
 }

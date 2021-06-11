@@ -1,13 +1,15 @@
 "use strict";
 
 const Category = require("../models/category"),
+      User = require("../models/user"),
       getCategoryParams = (body) => {
         return {
           category: body.category,
           nominal: parseInt(body.nominal),
           description: body.description
         };
-      };
+      },
+      httpStatus = require("http-status-codes");
 
 module.exports = {
   // index action
@@ -106,5 +108,27 @@ module.exports = {
           console.log(`Error deleting user by ID: ${error.message}`);
           next(error);
         });
+  },
+  // return data in JSON format
+  respondJSON: (req, res) => {
+    res.json({
+      status: httpStatus.OK,
+      data: res.locals
+    });
+  },
+  errorJSON: (error, req, res, next) => {
+    let errorObject;
+    if (error) {
+      errorObject = {
+        status: httpStatus.INTERNAL_SERVER_ERROR,
+        message: error.message
+      };
+    } else {
+      errorObject = {
+        status: httpStatus.INTERNAL_SERVER_ERROR,
+        message: "Unknown Error."
+      };
+    }
+    res.json(errorObject);
   }
 };

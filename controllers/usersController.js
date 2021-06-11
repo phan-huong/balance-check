@@ -12,7 +12,8 @@ const User = require("../models/user"),
           password: body.password,
           zipCode: body.zipCode
         };
-      };
+      },
+      token = process.env.TOKEN;
 
 module.exports = {
   // index action
@@ -158,5 +159,20 @@ module.exports = {
     req.flash("success", "You have been logged out!");
     res.locals.redirect = "/users/login";
     next();
+  },
+  verifyToken: (req, res, next) => {
+    let token = req.query.apiToken;
+    if (token) {
+      User.findOne({ apiToken: token })
+          .then(user => {
+            if (user) next();
+            else next(new Error("Invalid API token."));
+          })
+          .catch(error => {
+            next(new Error(error.message));
+          });
+    } else {
+      next(new Error("Invalid API token."));
+    }
   }
 };
