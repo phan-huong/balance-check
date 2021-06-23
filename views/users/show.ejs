@@ -26,12 +26,12 @@
   <tr>
     <td>
       <button type="button">
-        <a href="/balances">
+        <a href="/balances" style="color:white;">
           show
         </a>
       </button>
       <button type="button">
-        <a href="/balances/new">
+        <a href="/balances/new" style="color:white;">
           input
         </a>
       </button>
@@ -46,12 +46,12 @@
   <tr>
     <td>
       <button type="button">
-        <a href="/categories">
+        <a href="/categories" style="color:white;">
           show
         </a>
       </button>
       <button type="button">
-        <a href="/categories/new">
+        <a href="/categories/new" style="color:white;">
           input
         </a>
       </button>
@@ -62,17 +62,17 @@
 <br>
 <div>
   <button type="button">
-    <a href="/users">
+    <a href="/users" style="color:white;">
       back
     </a>
   </button>
   <button type="button">
-    <a href="<%= `/users/${user._id}/edit` %>">
+    <a href="<%= `/users/${user._id}/edit` %>" style="color:white;">
       edit
     </a>
   </button>
   <button type="button">
-    <a href="<%= `/users/${user._id}/delete?_method=DELETE` %>" onclick="return confirm('Are you sure you want to delete this record?')">
+    <a href="<%= `/users/${user._id}/delete?_method=DELETE` %> " onclick="return confirm('Are you sure you want to delete this record?')" style="color:white;">
       delete
     </a>
   </button>

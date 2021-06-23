@@ -14,7 +14,7 @@ $(document).ready(() => {
               <b>${category.category}</b>
             </span>
             <div class="category-description">
-              €${category.description}
+              ${category.description} €${category.nominal}
             </div>
           </div>`
         );

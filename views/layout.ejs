@@ -12,17 +12,8 @@
     <!-- AJAX function -->
       <script type="text/javascript" src="/js/balance-check.js"></script>
     <!-- custom css & js-->
-      <link rel="stylesheet" href="css/balance-check.css">
+      <link rel="stylesheet" href="/css/balance-check.css">
       <!--<script src="js/balance-check.js"></script>-->
-    <style>
-      body{font-family: verdana; padding: 30px;}
-      h1{font-size: 36px; text-transform: uppercase; letter-spacing: 2px; text-align: center;}
-      h2{font-size: 24px; text-align: center;}
-      div{margin: auto; font-size: 16px;}
-      img{display: inline-block; border-radius: 10px; margin-left: auto; margin-right: auto; width:70%; max-width: 500px;}
-      #header{font-family: verdana; font-size: 24px; text-align: center; padding: 10px; left: 0; right: 0; up: 0; width: 100%; color: grey;}
-      #footer{position: fixed; text-align: center; left: 0; right: 0; bottom: 0; width: 100%; background-color: dodgerblue; color: white;}
-    </style>
   </head>
   <body>
     <b><div id="header">Balance Check</div></b>
@@ -41,24 +32,15 @@
       <% } %>
     </div>
 
-    <div class="loggedIn" style="text-align: center;">
-      <% if (loggedIn) { %>
-        <p>Logged in as
-          <a href="<%= `/users/${currentUser._id}`%>">
-            <%= currentUser.fullName %>
-          </a>
-          <div id="apiToken" data-token="<%= currentUser.apiToken %>" style="display: none;"></div>
-          <a href="/users/logout">Log out</a>
-        </p>
-          <% } else { %>
-          <a href="/users/login">Log In</a>
-      <% } %>
-    </div>
-    <div>
+    <div class="nav-bar">
       <%- include ('categories/_categoriesModal') %>
     </div>
 
     <%- body %>
-    <div id="footer"><p> FOOTER </p></div>
+    <div id="footer">
+      <p>
+        Huong - John - Martin - Niklas
+      </p>
+    </div>
   </body>
 </html>
