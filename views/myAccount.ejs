@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Username</title>
+  </head>
+  <body>
+    <%- include('partials/navigation') %>
+
+    <!-- print out the username -->
+    <h1>Welcome back</h1>
+    <h2><%= username %></h2>
+
+    <!-- Input my balance -->
+    <input type="text" id="balance" placeholder="Enter Your Balance">
+    <button onclick="setVisibility('contentNext', 'inline'); myBalance('balance', 'moneyOutput')">Enter</button>
+    <h3 id="moneyOutput"></h3>
+
+    <!-- content, which will be shown after enter the balance -->
+    <div id="contentNext">
+      <!-- select dropdown spending category list -->
+      <form>
+        Select category:
+        <select id="selectCategory">
+          <% spendingCategory.forEach(categories => { %>
+            <option><%= categories.category %></option>
+          <% }); %>
+        </select>
+      </form>
+
+      <!-- Input nominal spend -->
+      <input type="text" id="spend" placeholder="Enter Nominal">
+      <button onclick="mySpend('spend', 'spendOutput')">Enter</button>
+      <button onclick="setVisibility('contentEnd', 'inline'); subtract('balance', 'spend', 'endOutput')">Finish</button>
+      <h3 id="spendOutput"></h3>
+    </div>
+
+    <div id="contentEnd">
+      <!-- Display subtraction -->
+      <h3 id="endOutput"></h3>
+    </div>
+
+  </body>
+</html>
