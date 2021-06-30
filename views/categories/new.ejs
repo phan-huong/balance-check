@@ -18,7 +18,24 @@
               <h2> Create a new spending: </h2>
               <label for="inputCategory">Category</label>
               <br>
-              <input type="text" name="category" id="inputCategory" placeholder="Category" style="margin-left: 10px" autofocus>
+              
+              <select v-model="selected" name="category" id="inputCategory" style="margin-left: 10px">
+                <option disabled value="">Please select one</option>
+                <option v-for="option in options" v-bind:value="option.value">
+                  {{ option.value }}
+                </option>
+              </select>
+
+              <template v-if="selected === 'Other'">
+                <input type="text" name="category" id="inputCategory" placeholder="Category" style="margin-left: 10px" autofocus>
+              </template>
+              <template v-else>
+                <br>
+                <span style="margin-left: 10px">
+                  Selected: {{ selected }}
+                </span>
+              </template>
+
               <br>
               <label for="inputNominal">Nominal</label>
               <br>
