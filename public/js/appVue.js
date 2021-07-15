@@ -9,9 +9,12 @@ var app = new Vue({
       { value: 'Pet' },
       { value: 'Other' }
     ],
-    selected: ''
+    selected: '',
+    message: 'You loaded this page on ' + new Date().toLocaleString()
   },
   methods: {
-    
+    reverseGreeting: function(){
+      this.greeting = this.greeting.split('').reverse().join('')
+    }
   }
 })

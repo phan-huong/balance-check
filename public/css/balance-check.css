@@ -178,6 +178,11 @@ ul {
   list-style-type: none;
 }
 
+span:hover {
+background-color: #87ceeb;
+color: #000000
+}
+
 @media only screen and (max-width: 600px) {
   .container {
     flex-direction: column;

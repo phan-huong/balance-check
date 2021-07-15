@@ -18,6 +18,7 @@
             <h1>{{ greeting }}</h1>
             
             <div style="text-align: center;">
+              <button v-on:click="reverseGreeting">Reverse Message</button>
               <br>
               <form action="/users/login" method="get">
                 <button>Login</button>
@@ -29,6 +30,11 @@
           </div>
         </div>
       </div>
+
+      <span v-bind:title="message">
+        Hover here to see when you loaded our Website.
+      </span>
+
     </div>
 
     <!-- Import AppVue.js -->
