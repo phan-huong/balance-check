@@ -1,17 +1,5 @@
 "use strict";
 
-exports.homePage = (req, res) => {
-  res.render("index");
-}
-
-exports.signUp = (req, res) => {
-  res.render("signUp");
-}
-
-exports.succeed = (req, res) => {
-  res.render("thanks");
-}
-
 var categories = [
   {
     category: "Fix Costs"
@@ -32,19 +20,25 @@ var categories = [
     category: "Custom"
   }
 ];
-exports.myAccount = (req, res) => {
-  if (req.body.username === "") {
-    res.send(`<h1>Empty Field</h1>`);
-  } else {
 
-    // check whether req.body.username.trim().toLowerCase() is availabe in collection
+module.exports = {
+  homePage: (req, res) => {
+    res.render("index");
+  },
+  myAccount: (req, res) => {
+    if (req.body.username === "") {
+      res.send(`<h1>Empty Field</h1>`);
+    } else {
 
-    res.render("myAccount", {
-      username: req.body.username.trim().toLowerCase(),
-      spendingCategory: categories
-    });
+      // check whether req.body.username.trim().toLowerCase() is availabe in collection
 
-    // else throws error
-    
+      res.render("myAccount", {
+        username: req.body.username.trim().toLowerCase(),
+        spendingCategory: categories
+      });
+
+      // else throws error
+
+    }
   }
-}
+};

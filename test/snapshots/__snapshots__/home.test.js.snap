@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders courses page correctly 1`] = `
+"<!DOCTYPE html>
+<html lang=\\"en\\">
+  <head>
+    <meta charset=\\"utf-8\\">
+    <!-- jQuery -->
+      <script src=\\"https://code.jquery.com/jquery-3.6.0.js\\" integrity=\\"sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=\\" crossorigin=\\"anonymous\\"></script>
+    <!-- bootstrap -->
+      <!-- css -->
+      <link rel=\\"stylesheet\\" href=\\"https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css\\" integrity=\\"undefined\\" crossorigin=\\"anonymous\\">
+      <!-- javaScript -->
+      <script src=\\"https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js\\" integrity=\\"sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx\\" crossorigin=\\"anonymous\\"></script>
+    <!-- AJAX function -->
+      <script type=\\"text/javascript\\" src=\\"/js/balance-check.js\\"></script>
+    <!-- custom css & js-->
+      <link rel=\\"stylesheet\\" href=\\"/css/balance-check.css\\">
+      <!--<script src=\\"js/balance-check.js\\"></script>-->
+  </head>
+  <body>
+    <b><div id=\\"header\\">Balance Check</div></b>
+
+    <div class=\\"flashes\\" style=\\"text-align: center;\\">
+      
+        
+      
+    </div>
+
+    <div class=\\"nav-bar\\">
+      <!-- Button to trigger modal -->
+<button id=\\"modal-button\\" type=\\"button\\" data-toggle=\\"modal\\" data-target=\\"#myModal\\">Category</button>
+
+<!-- Modal -->
+<div id=\\"myModal\\" class=\\"modal fade\\" role=\\"dialog\\">
+  <div class=\\"modal-dialog\\">
+    <h4 class=\\"modal-title\\">Categories</h4>
+    <div class=\\"modal-body\\">
+    </div>
+    <div class=\\"modal-footer\\">
+      <button type=\\"button\\" data-dismiss=\\"modal\\">Close</button>
+    </div>
+  </div>
+</div>
+
+    </div>
+
+    <!DOCTYPE html>
+<html lang=\\"en\\" dir=\\"ltr\\">
+  <head>
+    <meta charset=\\"utf-8\\">
+    <title>Welcome to Balance Check</title>
+    <!-- Import Vue.js -->
+    <script src=\\"https://unpkg.com/vue\\"></script>
+  </head>
+  <body>
+    <div id=\\"app\\">
+
+      <div class=\\"product-display\\">
+        <div class=\\"product-container\\">
+          <div class=\\"product-image\\">
+            <img :src=\\"image\\">
+          </div>
+          <div class=\\"product-info\\">
+            <h1>{{ greeting }}</h1>
+            
+            <div style=\\"text-align: center;\\">
+              <br>
+              <form action=\\"/users/login\\" method=\\"get\\">
+                <button>Login</button>
+              </form>
+              <form action=\\"/users/new\\" method=\\"get\\">
+                <button>Sign Up</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Import AppVue.js -->
+    <script src=\\"/js/appVue.js\\"></script>
+
+  </body>
+</html>
+
+    <div id=\\"footer\\">
+      <p>
+        Huong - John - Martin - Niklas
+      </p>
+    </div>
+  </body>
+</html>
+"
+`;
