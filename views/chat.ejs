@@ -1,0 +1,14 @@
+<div class="chatbox-container">
+    <% if (loggedIn) { %>
+        <h2>Hello <%= currentUser.fullName %>! You have something you need to say? Let us have a chat;)</h2>
+        <form id="chatForm">
+            <input id="chatInput" type="text" placeholder="Enter message..." />
+            <input id="chatUsername" type="hidden" value="<%= currentUser.fullName %>" />
+            <input id="chatUserId" type="hidden" value="<%= currentUser._id %>" />
+            <input type="submit" value="Send" />
+        </form>
+        <div id="chat"></div>
+    <% } else { %>
+        <h2>Please <a href="/users/login">sign in</a> to chat!</h2>
+    <% } %>
+</div>
