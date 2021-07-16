@@ -17,9 +17,8 @@
           <div class="product-info">
             <h1>{{ greeting }}</h1>
             
-            <div style="text-align: center;">
+            <div style="text-align: center;" class="indexBtn">
               <button v-on:click="reverseGreeting">Reverse Message</button>
-              <br>
               <form action="/users/login" method="get">
                 <button>Login</button>
               </form>
@@ -27,6 +26,13 @@
                 <button>Sign Up</button>
               </form>
             </div>
+
+            <div class="chatBtn">
+              <form action="/chat" method="get">
+                <button>Click here to chat!</button>
+              </form>
+            </div>
+
           </div>
         </div>
       </div>

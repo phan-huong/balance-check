@@ -21,6 +21,8 @@ $(document).ready(() => {
       });
     });
   });
+
+  outputMessage('Welcome to our chatbox!', 'Chatbot');
 });
 
 function setVisibility(id, visibility) {
@@ -60,4 +62,61 @@ function subtract(inputBalance, inputSpending, output) {
   })
   // Display subtraction
   document.getElementById(output).innerHTML = "Your end balance: " + number.format(balance-spend);
+}
+
+
+// Adding client-side JS for socket.io
+const socket = io();
+
+// Message submit
+window.onload = function() {
+
+  const chatMessages = document.getElementById('chat');
+
+  // Message from the server
+  socket.on('message', message => {
+    console.log(message);
+    outputMessage(message);
+
+    // Scroll down
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }); 
+
+  var chat_form = document.getElementById('chatForm');
+  if (chat_form) {
+    chat_form.addEventListener('submit', (e) => {
+      e.preventDefault();
+    
+      const msg = e.target.elements.chatInput.value;
+      // console.log(msg);
+      socket.emit('chatMessage', msg);
+
+      // Clear input
+      e.target.elements.chatInput.value = '';
+      e.target.elements.chatInput.focus();
+    });
+  }
+}
+
+const format_date = (now) => {
+  let hours = now.getHours() < 10 ? '0' + now.getHours() : now.getHours();
+  let minutes = now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes();
+  return (hours + ':' + minutes);
+}
+
+
+// Output Message to DOM
+const outputMessage = (message, chatbot) => {
+  if (message) {
+    const div = document.createElement('div');
+    div.classList.add('newMessage');
+    let userName = chatbot ? chatbot : $('#chatUsername').val();
+    if (chatbot) {
+      div.innerHTML = `<p class="msgLabel">${chatbot} at ${format_date(new Date())}</p><p>${message}</p>`;
+    } else {
+      div.innerHTML = `<p class="msgLabel">${userName} at ${message.time}</p><p>${message.text}</p>`;
+    }
+    // div.innerHTML = `<p class="msgLabel">${userName} at ${message.time}</p><p>${message.text}</p>`;
+    document.getElementById('chat').appendChild(div);
+  }
 }

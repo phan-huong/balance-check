@@ -40,5 +40,8 @@ module.exports = {
       // else throws error
 
     }
+  },
+  chat: (req, res) => {
+    res.render("chat");
   }
 };
